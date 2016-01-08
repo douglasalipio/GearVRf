@@ -1,5 +1,5 @@
 package org.gearvrf.accessibility;
 
-public class GVRAccessibilityTalkBack {
+public class GVRAccessibilitySpeechRecognition {
 
 }

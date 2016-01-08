@@ -31,6 +31,8 @@ public class GVRAccessibilityScene extends GVRScene {
     }
 
     /**
+     * Constructor to use your own {@link GVRAccessibilityMenuButton}.
+     * 
      * @param gvrContext
      * @param menuButton
      */

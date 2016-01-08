@@ -11,23 +11,23 @@ import android.speech.tts.TextToSpeech;
 import android.speech.tts.TextToSpeech.OnInitListener;
 
 /**
- * {@link GVRAccessibilityTextSpeech} responsible for converting the value from
- * a string variable to audio.
+ * {@link GVRAccessibilityTalkBack} responsible for converting the value from a
+ * string variable to audio.
  */
-public class GVRAccessibilityTextSpeech {
+public class GVRAccessibilityTalkBack {
 
     private TextToSpeech mTextToSpeech;
     private Locale mLocale;
     private Context mContext;
     private String mText;
-    private static final String TAG = Log.tag(GVRAccessibilityTextSpeech.class);
+    private static final String TAG = Log.tag(GVRAccessibilityTalkBack.class);
 
     /**
      * @param locale target language
      * @param context Android context
      * @param text to be converted
      */
-    public GVRAccessibilityTextSpeech(Locale locale, Context context, String text) {
+    public GVRAccessibilityTalkBack(Locale locale, Context context, String text) {
         mText = text;
         mLocale = locale;
         mContext = context;

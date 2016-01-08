@@ -29,7 +29,7 @@ import org.gearvrf.GVRTexture;
  */
 public class GVRAccessibilityObject extends GVRSceneObject {
 
-    private GVRAccessibilityTextSpeech mTextSpeech;
+    private GVRAccessibilityTalkBack mTextSpeech;
 
     /**
      * Constructs a scene object with {@linkplain GVRMesh an arbitrarily complex
@@ -51,14 +51,14 @@ public class GVRAccessibilityObject extends GVRSceneObject {
      * 
      * @param mTextSpeech
      */
-    public void setTextSpeech(GVRAccessibilityTextSpeech mTextSpeech) {
+    public void setTextSpeech(GVRAccessibilityTalkBack mTextSpeech) {
         this.mTextSpeech = mTextSpeech;
     }
 
     /**
-     * @return the object {@link GVRAccessibilityTextSpeech}
+     * @return the object {@link GVRAccessibilityTalkBack}
      */
-    public GVRAccessibilityTextSpeech getTextSpeech() {
+    public GVRAccessibilityTalkBack getTextSpeech() {
         return this.mTextSpeech;
     }
 }
