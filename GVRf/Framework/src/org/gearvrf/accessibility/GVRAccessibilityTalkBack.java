@@ -1,7 +1,6 @@
 
 package org.gearvrf.accessibility;
 
-import java.security.InvalidParameterException;
 import java.util.Locale;
 
 import org.gearvrf.utility.Log;
@@ -35,6 +34,14 @@ public class GVRAccessibilityTalkBack {
     }
 
     /**
+     * @param context Android context.
+     */
+    public GVRAccessibilityTalkBack(Context context) {
+        mContext = context;
+        init();
+    }
+
+    /**
      * Inicialize {@code TextToSpeech} and treats not supported languages
      * exceptions setting a default language.
      */
@@ -46,16 +53,13 @@ public class GVRAccessibilityTalkBack {
             public void onInit(int status) {
 
                 if (status == TextToSpeech.SUCCESS) {
+                    checkCurrentLocale();
                     int result = mTextToSpeech.setLanguage(mLocale);
 
                     if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
-                        Log.e(TAG, "This language is not supported - " + "Country:"
-                                + mLocale.getCountry()
-                                + " - Language:" + mLocale.getLanguage());
-
-                        throw new InvalidParameterException("This language is not supported - "
-                                + "Country:" + mLocale.getCountry()
-                                + " - Language:" + mLocale.getLanguage());
+                        mLocale = getDefaultLocale();
+                        init();
+                        Log.i(TAG, "set default locale (English US) for gvrAccessibility");
                     }
                 }
             }
@@ -63,26 +67,52 @@ public class GVRAccessibilityTalkBack {
 
     }
 
-    /**
-     * @return
-     */
     public Locale getLocale() {
         return mLocale;
     }
 
-    /**
-     * @param mLocale
-     */
     public void setLocale(Locale mLocale) {
         this.mLocale = mLocale;
         init();
     }
 
-    /**
-     * @param text
-     */
     public void speak() {
         mTextToSpeech.speak(mText, TextToSpeech.QUEUE_FLUSH, null);
+    }
+
+    public String getText() {
+        return mText;
+    }
+
+    public void setText(String mText) {
+        this.mText = mText;
+        init();
+    }
+
+    /**
+     * Interrupts the current utterance (whether played or rendered to file) and
+     * discards other utterances in the queue and Releases the resources used by
+     * the TextToSpeech engine. It is good practice for instance to call this
+     * method in the onDestroy() method of an Activity so the TextToSpeech
+     * engine can be cleanly stopped.
+     */
+    public void shutdown() {
+        mTextToSpeech.stop();
+        mTextToSpeech.shutdown();
+    }
+
+    /**
+     * By default locale is English US.
+     * 
+     * @return
+     */
+    public Locale getDefaultLocale() {
+        return Locale.US;
+    }
+
+    private void checkCurrentLocale() {
+        if (mLocale == null)
+            mLocale = mContext.getResources().getConfiguration().locale;
     }
 
 }
