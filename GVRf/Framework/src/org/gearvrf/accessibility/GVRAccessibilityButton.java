@@ -19,7 +19,7 @@ final class GVRAccessibilityButton extends GVRSceneObject {
     public GVRAccessibilityButton(final GVRContext gvrContext, GVRMesh mesh, GVRTexture texture) {
         super(gvrContext, mesh, texture);
 
-        GVRTexture textureBackground = gvrContext.loadTexture(new GVRAndroidResource(gvrContext, R.drawable.ic_speech_off));
+        GVRTexture textureBackground = gvrContext.loadTexture(new GVRAndroidResource(gvrContext, R.drawable.bt_icon));
         mIconButton = new GVRSceneObject(gvrContext, gvrContext.createQuad(.8f, .8f), textureBackground);
         mIconButton.getRenderData().setRenderingOrder(1);
         addChildObject(mIconButton);
