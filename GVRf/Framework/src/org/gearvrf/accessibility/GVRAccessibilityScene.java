@@ -6,11 +6,15 @@ import org.gearvrf.GVRScene;
 
 /**
  * {@link GVRAccessibilityScene} is responsible for encapsulating all
- * accessibility features interactions. It enables a menu with the following
- * features each one having it's own button </p> <@link
- * GVRAccessibilityTextSpeech> <@link GVRAccessibilityInvertedColors> <@link
- * GVRAccessibilitySettings> <@link GVRAccessibilityTalkBack> <@link
- * GVRAccessibilityCaptions> <@link GVRAccessibilityZoom> </p>
+ * accessibility features interactions.<br/>
+ * It enables a menu with the following features each one having it's own button <br/>
+ * {@link GVRAccessibilityTextSpeech} <br/>
+ * {@link GVRAccessibilityInvertedColors} <br/>
+ * {@link GVRAccessibilitySettings} <br/>
+ * {@link GVRAccessibilityTalkBack} <br/>
+ * {@link GVRAccessibilityCaptions} <br/>
+ * {@link GVRAccessibilityZoom} <br/>
+ * <br/>
  * {@link GVRAccessibilityScene} instantiates a skybox and menu both disabled
  * and a button to add and remove them from the scene.
  */
