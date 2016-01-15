@@ -42,6 +42,7 @@ public class GVRAccessibilityScene extends GVRScene {
         super(gvrContext);
         mGvrContext = gvrContext;
         createDefaultSkyBox();
+        createItems();
         backToMainScene();
     }
 
@@ -211,6 +212,48 @@ public class GVRAccessibilityScene extends GVRScene {
         skyBox.getRenderData().setRenderingOrder(0);
         addSceneObject(skyBox);
         return this;
+    }
+
+    private void createItems() {
+        GVRMesh mesh = getGVRContext().createQuad(3, 4.873f);
+        GVRAccessibilityItem invertedColors = new GVRAccessibilityItem(getGVRContext(), mesh, getGVRContext()
+                .loadTexture(new GVRAndroidResource(getGVRContext(), R.drawable.inverted_colors_off)));
+        invertedColors.getTransform().setPositionZ(-10f);
+        this.addSceneObject(invertedColors);
+
+        GVRAccessibilityItem zoom = new GVRAccessibilityItem(getGVRContext(), mesh, getGVRContext()
+                .loadTexture(new GVRAndroidResource(getGVRContext(), R.drawable.zoom_off)));
+        zoom.getTransform().setPositionZ(-10f);
+        this.addSceneObject(zoom);
+
+        GVRAccessibilityItem talkBack = new GVRAccessibilityItem(getGVRContext(), mesh, getGVRContext()
+                .loadTexture(new GVRAndroidResource(getGVRContext(), R.drawable.talk_back_off)));
+        talkBack.getTransform().setPositionZ(-10f);
+        this.addSceneObject(talkBack);
+
+        GVRAccessibilityItem speech = new GVRAccessibilityItem(getGVRContext(), mesh, getGVRContext()
+                .loadTexture(new GVRAndroidResource(getGVRContext(), R.drawable.speech_off)));
+        speech.getTransform().setPositionZ(-10f);
+        this.addSceneObject(speech);
+
+        GVRAccessibilityItem captions = new GVRAccessibilityItem(getGVRContext(), mesh, getGVRContext()
+                .loadTexture(new GVRAndroidResource(getGVRContext(), R.drawable.captions_off)));
+        captions.getTransform().setPositionZ(-10f);
+        this.addSceneObject(captions);
+
+        GVRAccessibilityItem settings = new GVRAccessibilityItem(getGVRContext(), mesh, getGVRContext()
+                .loadTexture(new GVRAndroidResource(getGVRContext(), R.drawable.settings_off)));
+        settings.getTransform().setPositionZ(-10f);
+        this.addSceneObject(settings);
+
+        float angle = -20;
+
+        invertedColors.getTransform().rotateByAxisWithPivot(-3 * angle, 0, 1, 0, 0, 0, 0);
+        zoom.getTransform().rotateByAxisWithPivot(-2 * angle, 0, 1, 0, 0, 0, 0);
+        talkBack.getTransform().rotateByAxisWithPivot(-1 * angle, 0, 1, 0, 0, 0, 0);
+        speech.getTransform().rotateByAxisWithPivot(0 * angle, 0, 1, 0, 0, 0, 0);
+        captions.getTransform().rotateByAxisWithPivot(1 * angle, 0, 1, 0, 0, 0, 0);
+        settings.getTransform().rotateByAxisWithPivot(2 * angle, 0, 1, 0, 0, 0, 0);
     }
 
     private void createButtonBackMainScene() {
