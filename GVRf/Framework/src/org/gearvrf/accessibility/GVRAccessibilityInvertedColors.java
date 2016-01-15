@@ -7,7 +7,7 @@ import org.gearvrf.GVRPostEffect;
 public class GVRAccessibilityInvertedColors {
 
     private GVRPostEffect postEffect;
-    private GVRAccessiblityPostEffectShader shaderManager;
+    private GVRAccessibilityPostEffectShader shaderManager;
     private GVRContext mGvrContext;
     private boolean hasPostEffect;
 
@@ -22,7 +22,7 @@ public class GVRAccessibilityInvertedColors {
 
             @Override
             public void run() {
-                shaderManager = new GVRAccessiblityPostEffectShader(gvrContext);
+                shaderManager = new GVRAccessibilityPostEffectShader(gvrContext);
                 postEffect = new GVRPostEffect(gvrContext, shaderManager.getShaderId());
             }
         });

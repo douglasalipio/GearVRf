@@ -23,7 +23,7 @@ import org.gearvrf.GVRPostEffectShaderManager;
 /**
  * Shader used post process to invert colors from cameras rendered image.
  */
-final class GVRAccessiblityPostEffectShader {
+final class GVRAccessibilityPostEffectShader {
 
     private final GVRCustomPostEffectShaderId mShaderId;
     private GVRPostEffectMap mCustomShader;
@@ -33,7 +33,7 @@ final class GVRAccessiblityPostEffectShader {
      * 
      * @param gvrContext
      */
-    public GVRAccessiblityPostEffectShader(GVRContext gvrContext) {
+    public GVRAccessibilityPostEffectShader(GVRContext gvrContext) {
         final GVRPostEffectShaderManager shaderManager = gvrContext
                 .getPostEffectShaderManager();
         mShaderId = shaderManager.addShader(org.gearvrf.R.raw.inverted_colors_vertex,
