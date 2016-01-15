@@ -13,33 +13,43 @@ import org.gearvrf.R;
 /**
  * {@link GVRAccessibilityScene} is responsible for encapsulating all
  * accessibility features interactions.<br/>
- * It enables a menu with the following features each one having it's own button <br/>
- * {@link GVRAccessibilityTextSpeech} <br/>
- * {@link GVRAccessibilityInvertedColors} <br/>
- * {@link GVRAccessibilitySettings} <br/>
- * {@link GVRAccessibilityTalkBack} <br/>
- * {@link GVRAccessibilityCaptions} <br/>
- * {@link GVRAccessibilityZoom} <br/>
+ * It enables a menu with the following features each one having it's own
+ * button: <br/>
+ * <li>
+ * {@link GVRAccessibilityTextSpeech} <li>
+ * {@link GVRAccessibilityInvertedColors} <li>
+ * {@link GVRAccessibilitySettings}
+ * <li>
+ * {@link GVRAccessibilityTalkBack} <li>
+ * {@link GVRAccessibilityCaptions},
+ * <li>
+ * {@link GVRAccessibilityZoom}<br/>
+ * </br> {@link GVRAccessibilityScene} instantiates a sky box and menu both
+ * disabled and a button to add and remove them from the {@link GVRSceneObject}.
  * <br/>
- * {@link GVRAccessibilityScene} instantiates a sky box and menu both disabled
- * and a button to add and remove them from the {@link GVRSceneObject}.
+ * <br/>
+ * &nbsp; &nbsp;&nbsp; Add to scene in your project:
+ * 
+ * <pre>
+ * GVRAccessibilityScene scene = new GVRAccessibilityScene(gvrContext);
+ * gvrContextYouApplication.setMainScene(scene);
+ * </pre>
  */
 public class GVRAccessibilityScene extends GVRScene {
 
     private GVRAccessibilityButton mMenuButton;
     private GVRSceneObject mRightEye;
     private GVRSceneObject mLeftEye;
-    private GVRSceneObject mBothSkyBoxEye;
+    private GVRSceneObject mBothEyesSkyBox;
     private GVRContext mGvrContext;
 
     /**
-     * This constructor creates default scene<br/>
-     * <br/>
-     * {@code
-     *  GVRAccessibilityScene scene = new GVRAccessibilityScene(gvrContext);
-     *  gvrContextYouApplication.setMainScene(scene);
-     *  
-     * }
+     * This constructor creates default scene</p>
+     * 
+     * <pre>
+     * GVRAccessibilityScene scene = new GVRAccessibilityScene(gvrContext);
+     * gvrContextYouApplication.setMainScene(scene);
+     * </pre>
      * 
      * @param gvrContext
      */
@@ -51,11 +61,13 @@ public class GVRAccessibilityScene extends GVRScene {
 
     /**
      * This constructor is possible customize a {@code GVRAccessibilityButton}
-     * inside scene. </br></br>
-     * {@code  
-     *  GVRAccessibilityButton openAccessibilityMenu = new GVRAccessibilityButton(gvrContext);
-     *  GVRAccessibilityScene scene = new GVRAccessibilityScene(gvrContext, openAccessibilityMenu);
-     *  gvrContextYourApplication.setMainScene(scene);}
+     * inside scene. </p>
+     * 
+     * <pre>
+     * GVRAccessibilityButton openAccessibilityMenu = new GVRAccessibilityButton(gvrContext);
+     * GVRAccessibilityScene scene = new GVRAccessibilityScene(gvrContext, openAccessibilityMenu);
+     * gvrContextYourApplication.setMainScene(scene);
+     * </pre>
      * 
      * @param gvrContext
      * @param menuButton for enable accessibility menu.
@@ -68,58 +80,59 @@ public class GVRAccessibilityScene extends GVRScene {
     }
 
     /**
-     * This constructor is possible customize sky box thought
-     * {@link GVRSceneObject}.</br></br>
-     * {@code
+     * With this constructor it is possible to customize sky box thought
+     * {@link GVRSceneObject}.</p>
+     * 
+     * <pre>
      *  GVRSceneObject skyBox = new GVRSceneObject(gvrContext);
      *  GVRAccessibilityButton button = new GVRAccessibilityButton(gvrContext);}
-     * </br>
-     * {@code
      *  GVRAccessibilityScene scene = new GVRAccessibilityScene(gvrContext, skyBox, button);
      *  gvrContextYourApplication.setMainScene(scene)
-     *  }
+     * </pre>
      * 
      * @param gvrContext
      * @param menuButton
      */
-    public GVRAccessibilityScene(GVRContext gvrContext, GVRSceneObject bothSkyBoxEye, GVRAccessibilityButton menuButton) {
+    public GVRAccessibilityScene(GVRContext gvrContext, GVRSceneObject bothEyesSkyBox, GVRAccessibilityButton menuButton) {
         super(gvrContext);
         mGvrContext = gvrContext;
         mMenuButton = menuButton;
-        mBothSkyBoxEye = bothSkyBoxEye;
-        createSkyBoxWhithBothEye();
+        mBothEyesSkyBox = bothEyesSkyBox;
+        createSkyBoxForBothEyes();
     }
 
     /**
-     * This constructor is possible customize sky box thought
-     * {@link GVRSceneObject}.</br></br> GVRSceneObject(gvrContext);
-     * {@code 
+     * With this constructor it is possible to customize sky box thought
+     * {@link GVRSceneObject}.</p>
+     * 
+     * <pre>
      * GVRSceneObject skyBox = new GVRSceneObject(gvrContext);
      * GVRAccessibilityScene scene = new GVRAccessibilityScene(gvrContext,skyBox);
-     * gvrContextYourApplication.setMainScene(scene) }
+     * gvrContextYourApplication.setMainScene(scene)
+     * </pre>
      * 
      * @param gvrContext
-     * @param bothSkyBoxEye
+     * @param bothEyeSkyBox
      */
-    public GVRAccessibilityScene(GVRContext gvrContext, GVRSceneObject bothSkyBoxEye) {
+    public GVRAccessibilityScene(GVRContext gvrContext, GVRSceneObject bothEyeSkyBox) {
         super(gvrContext);
         mGvrContext = gvrContext;
-        mBothSkyBoxEye = bothSkyBoxEye;
-        createSkyBoxWhithBothEye();
+        mBothEyesSkyBox = bothEyeSkyBox;
+        createSkyBoxForBothEyes();
     }
 
     /**
-     * This constructor is possible customize sky box thought
-     * {@link GVRSceneObject}.</br></br>
-     * {@code
+     * With this constructor it is possible to customize sky box thought
+     * {@link GVRSceneObject}.</p>
      * 
+     * <pre>
      * GVRSceneObject leftScreen = new GVRSceneObject(gvrContext);
      * GVRSceneObject rightScreen = new GVRSceneObject(gvrContext);
      * GVRAccessibilityButton initMenu = new GVRAccessibilityButton(gvrContext);
      * 
      * GVRAccessibilityScene scene = new GVRAccessibilityScene(gvrContext,rightScreen, leftScreen, initMenu);
-     * gvrContextYourApplication.setMainScene(scene) 
-     * }
+     * gvrContextYourApplication.setMainScene(scene)
+     * </pre>
      * 
      * @param gvrContext
      * @param mesh
@@ -136,14 +149,17 @@ public class GVRAccessibilityScene extends GVRScene {
     }
 
     /**
-     * This constructor is possible customize sky box thought
+     * With this constructor it is possible to customize sky box thought
      * {@link GVRSceneObject}.</br></br>
-     * {@code
+     * 
+     * <pre>
      * GVRSceneObject leftScreen = new GVRSceneObject(gvrContext);
      * GVRSceneObject rightScreen = new GVRSceneObject(gvrContext);
      * 
      * GVRAccessibilityScene scene = new GVRAccessibilityScene(gvrContext,rightScreen, leftScreen);
-     * gvrContextYourApplication.setMainScene(scene) 
+     * gvrContextYourApplication.setMainScene(scene)
+     * </pre>
+     * 
      * }
      * 
      * @param gvrContext
@@ -159,7 +175,7 @@ public class GVRAccessibilityScene extends GVRScene {
     }
 
     /**
-     * Create sky box using two {@code GVRSceneObject} for each eye
+     * Create sky box using one {@code GVRSceneObject} for each eye
      * 
      * @return
      */
@@ -180,19 +196,19 @@ public class GVRAccessibilityScene extends GVRScene {
     }
 
     /**
-     * Create sky box using one {@code GVRSceneObject} for eyes
+     * Create sky box using one {@code GVRSceneObject} for both eyes
      * 
      * @return
      */
-    private GVRAccessibilityScene createSkyBoxWhithBothEye() {
-        mBothSkyBoxEye.getRenderData().setRenderingOrder(0);
-        applyShaderOnSkyBox(mBothSkyBoxEye);
-        addSceneObject(mBothSkyBoxEye);
+    private GVRAccessibilityScene createSkyBoxForBothEyes() {
+        mBothEyesSkyBox.getRenderData().setRenderingOrder(0);
+        applyShaderOnSkyBox(mBothEyesSkyBox);
+        addSceneObject(mBothEyesSkyBox);
         return this;
     }
 
     /**
-     * Create sky box default for accessibility scene.
+     * Create default sky box for accessibility scene.
      * 
      * @return
      */
@@ -206,6 +222,10 @@ public class GVRAccessibilityScene extends GVRScene {
         return this;
     }
 
+    private void createButtonBackMainScene() {
+
+    }
+
     /**
      * Apply blur effect on SkyBox
      * 
@@ -217,6 +237,10 @@ public class GVRAccessibilityScene extends GVRScene {
         skyBox.getRenderData().getMaterial().setTexture(GVRAccessibilitySceneShader.TEXTURE_KEY,
                 skyBox.getRenderData().getMaterial().getMainTexture());
         skyBox.getRenderData().getMaterial().setFloat(GVRAccessibilitySceneShader.BLUR_INTENSITY, 1);
+    }
+
+    private void backToMainScene() {
+        mGvrContext.setMainScene(mGvrContext.getMainScene());
     }
 
     private void createDefaultMenuButton() {
