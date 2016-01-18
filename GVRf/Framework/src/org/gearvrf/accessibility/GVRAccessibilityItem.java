@@ -32,53 +32,62 @@ public class GVRAccessibilityItem extends GVRSceneObject {
             isAnimating = true;
             if (isActive) {
                 new GVRRelativeMotionAnimation(this, duration, newPosition[0] - initialPosition[0], newPosition[1] - initialPosition[1],
-                        newPosition[2] - initialPosition[2]).start(getGVRContext().getAnimationEngine()).setOnFinish(new GVROnFinish() {
+                        newPosition[2] - initialPosition[2]).start(getGVRContext().getAnimationEngine())
+                        .setInterpolator(GVRAccessibilityInterpolatorBackEaseOut.getInstance()).setOnFinish(new GVROnFinish() {
 
-                    @Override
-                    public void finished(GVRAnimation animation) {
-                        new GVRRotationByAxisAnimation(GVRAccessibilityItem.this, duration, 180, 0, 1, 0).start(getGVRContext().getAnimationEngine())
-                                .setOnFinish(new GVROnFinish() {
-
-                                    @Override
-                                    public void finished(GVRAnimation animation) {
-                                        new GVRRelativeMotionAnimation(GVRAccessibilityItem.this, duration, initialPosition[0] - newPosition[0],
-                                                initialPosition[1] - newPosition[1], initialPosition[2] - newPosition[2]).start(
-                                                getGVRContext().getAnimationEngine()).setOnFinish(new GVROnFinish() {
+                            @Override
+                            public void finished(GVRAnimation animation) {
+                                new GVRRotationByAxisAnimation(GVRAccessibilityItem.this, duration * 3, 180, 0, 1, 0)
+                                        .start(getGVRContext().getAnimationEngine())
+                                        .setInterpolator(GVRAccessibilityInterpolatorStrongEaseInOut.getInstance()).setOnFinish(new GVROnFinish() {
 
                                             @Override
                                             public void finished(GVRAnimation animation) {
-                                                isAnimating = false;
+                                                new GVRRelativeMotionAnimation(GVRAccessibilityItem.this, duration, initialPosition[0]
+                                                        - newPosition[0],
+                                                        initialPosition[1] - newPosition[1], initialPosition[2] - newPosition[2])
+                                                        .start(getGVRContext().getAnimationEngine())
+                                                        .setInterpolator(GVRAccessibilityInterpolatorBackEaseIn.getInstance())
+                                                        .setOnFinish(new GVROnFinish() {
+
+                                                            @Override
+                                                            public void finished(GVRAnimation animation) {
+                                                                isAnimating = false;
+                                                            }
+                                                        });
                                             }
                                         });
-                                    }
-                                });
-                    }
-                });
+                            }
+                        });
             } else {
                 new GVRRelativeMotionAnimation(this, duration, newPosition[0] - initialPosition[0], newPosition[1] - initialPosition[1],
-                        newPosition[2] - initialPosition[2]).start(getGVRContext().getAnimationEngine()).setOnFinish(new GVROnFinish() {
+                        newPosition[2] - initialPosition[2]).start(getGVRContext().getAnimationEngine())
+                        .setInterpolator(GVRAccessibilityInterpolatorBackEaseOut.getInstance()).setOnFinish(new GVROnFinish() {
 
-                    @Override
-                    public void finished(GVRAnimation animation) {
-                        new GVRRotationByAxisAnimation(GVRAccessibilityItem.this, duration, -180, 0, 1, 0)
-                                .start(getGVRContext().getAnimationEngine())
-                                .setOnFinish(new GVROnFinish() {
-
-                                    @Override
-                                    public void finished(GVRAnimation animation) {
-                                        new GVRRelativeMotionAnimation(GVRAccessibilityItem.this, duration, initialPosition[0] - newPosition[0],
-                                                initialPosition[1] - newPosition[1], initialPosition[2] - newPosition[2]).start(
-                                                getGVRContext().getAnimationEngine()).setOnFinish(new GVROnFinish() {
+                            @Override
+                            public void finished(GVRAnimation animation) {
+                                new GVRRotationByAxisAnimation(GVRAccessibilityItem.this, duration * 3, -180, 0, 1, 0)
+                                        .start(getGVRContext().getAnimationEngine())
+                                        .setInterpolator(GVRAccessibilityInterpolatorStrongEaseInOut.getInstance()).setOnFinish(new GVROnFinish() {
 
                                             @Override
                                             public void finished(GVRAnimation animation) {
-                                                isAnimating = false;
+                                                new GVRRelativeMotionAnimation(GVRAccessibilityItem.this, duration, initialPosition[0]
+                                                        - newPosition[0],
+                                                        initialPosition[1] - newPosition[1], initialPosition[2] - newPosition[2])
+                                                        .start(getGVRContext().getAnimationEngine())
+                                                        .setInterpolator(GVRAccessibilityInterpolatorBackEaseIn.getInstance())
+                                                        .setOnFinish(new GVROnFinish() {
+
+                                                            @Override
+                                                            public void finished(GVRAnimation animation) {
+                                                                isAnimating = false;
+                                                            }
+                                                        });
                                             }
                                         });
-                                    }
-                                });
-                    }
-                });
+                            }
+                        });
             }
             isActive = !isActive;
         }
