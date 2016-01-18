@@ -226,40 +226,50 @@ public class GVRAccessibilityScene extends GVRScene {
     }
 
     private void createItems() {
-        GVRMesh mesh = getGVRContext().createQuad(3, 4.873f);
+        float positionX = 0f;
+        float positionY = -1f;
+        float positionZ = -10f;
+        float scale = 0.03f;
+        GVRMesh mesh = getGVRContext().loadMesh(new GVRAndroidResource(getGVRContext(), R.raw.accessibility_item));
         GVRAccessibilityItem invertedColors = new GVRAccessibilityItem(getGVRContext(), mesh, getGVRContext()
-                .loadTexture(new GVRAndroidResource(getGVRContext(), R.drawable.inverted_colors_off)));
-        invertedColors.getTransform().setPositionZ(-10f);
+                .loadTexture(new GVRAndroidResource(getGVRContext(), R.drawable.inverted_colors)));
+        invertedColors.getTransform().setPosition(positionX, positionY, positionZ);
+        invertedColors.getTransform().setScale(scale, scale, scale);
         invertedColors.attachEyePointeeHolder();
         this.addSceneObject(invertedColors);
 
         GVRAccessibilityItem zoom = new GVRAccessibilityItem(getGVRContext(), mesh, getGVRContext()
-                .loadTexture(new GVRAndroidResource(getGVRContext(), R.drawable.zoom_off)));
-        zoom.getTransform().setPositionZ(-10f);
+                .loadTexture(new GVRAndroidResource(getGVRContext(), R.drawable.zoom)));
+        zoom.getTransform().setPosition(positionX, positionY, positionZ);
+        zoom.getTransform().setScale(scale, scale, scale);
         zoom.attachEyePointeeHolder();
         this.addSceneObject(zoom);
 
         GVRAccessibilityItem talkBack = new GVRAccessibilityItem(getGVRContext(), mesh, getGVRContext()
-                .loadTexture(new GVRAndroidResource(getGVRContext(), R.drawable.talk_back_off)));
-        talkBack.getTransform().setPositionZ(-10f);
+                .loadTexture(new GVRAndroidResource(getGVRContext(), R.drawable.talk_back)));
+        talkBack.getTransform().setPosition(positionX, positionY, positionZ);
+        talkBack.getTransform().setScale(scale, scale, scale);
         talkBack.attachEyePointeeHolder();
         this.addSceneObject(talkBack);
 
         GVRAccessibilityItem speech = new GVRAccessibilityItem(getGVRContext(), mesh, getGVRContext()
-                .loadTexture(new GVRAndroidResource(getGVRContext(), R.drawable.speech_off)));
-        speech.getTransform().setPositionZ(-10f);
+                .loadTexture(new GVRAndroidResource(getGVRContext(), R.drawable.speech)));
+        speech.getTransform().setPosition(positionX, positionY, positionZ);
+        speech.getTransform().setScale(scale, scale, scale);
         speech.attachEyePointeeHolder();
         this.addSceneObject(speech);
 
         GVRAccessibilityItem captions = new GVRAccessibilityItem(getGVRContext(), mesh, getGVRContext()
-                .loadTexture(new GVRAndroidResource(getGVRContext(), R.drawable.captions_off)));
-        captions.getTransform().setPositionZ(-10f);
+                .loadTexture(new GVRAndroidResource(getGVRContext(), R.drawable.captions)));
+        captions.getTransform().setPosition(positionX, positionY, positionZ);
+        captions.getTransform().setScale(scale, scale, scale);
         captions.attachEyePointeeHolder();
         this.addSceneObject(captions);
 
         GVRAccessibilityItem settings = new GVRAccessibilityItem(getGVRContext(), mesh, getGVRContext()
-                .loadTexture(new GVRAndroidResource(getGVRContext(), R.drawable.settings_off)));
-        settings.getTransform().setPositionZ(-10f);
+                .loadTexture(new GVRAndroidResource(getGVRContext(), R.drawable.settings)));
+        settings.getTransform().setPosition(positionX, positionY, positionZ);
+        settings.getTransform().setScale(scale, scale, scale);
         settings.attachEyePointeeHolder();
         this.addSceneObject(settings);
 
@@ -302,10 +312,11 @@ public class GVRAccessibilityScene extends GVRScene {
 
     }
 
-    public void onStep() {
+    public void interact() {
         GVREyePointeeHolder[] eyePointeeHolders = GVRPicker.pickScene(this);
         for (GVREyePointeeHolder gvrEyePointeeHolder : eyePointeeHolders) {
             ((GVRAccessibilityItem) gvrEyePointeeHolder.getOwnerObject()).click();
         }
     }
+
 }
