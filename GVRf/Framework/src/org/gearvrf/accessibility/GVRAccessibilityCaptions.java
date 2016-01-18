@@ -93,8 +93,7 @@ public class GVRAccessibilityCaptions {
                 textView.setTextSize(30);
                 textView.setGravity(Gravity.CENTER_HORIZONTAL);
                 textView.setPadding(0, -90, 0, 0);
-                Typeface type = Typeface.createFromAsset(mGvrContext.getActivity().getAssets(), "fonts/DroidSans-Bold.ttf");
-                textView.setTypeface(type);
+                textView.setTypeface(Typeface.SANS_SERIF, Typeface.BOLD);
             }
 
         });
