@@ -227,7 +227,7 @@ public class GVRAccessibilityScene extends GVRScene {
 
     private void createItems() {
         float positionX = 0f;
-        float positionY = -1f;
+        float positionY = -2f;
         float positionZ = -10f;
         float scale = 0.03f;
         GVRMesh mesh = getGVRContext().loadMesh(new GVRAndroidResource(getGVRContext(), R.raw.accessibility_item));
