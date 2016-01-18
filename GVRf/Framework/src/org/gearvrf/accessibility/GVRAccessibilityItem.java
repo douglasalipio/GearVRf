@@ -20,10 +20,19 @@ public class GVRAccessibilityItem extends GVRSceneObject {
     }
 
     public void click() {
+        float distance = (float) GVRAccessibilityUtils.distance(this, getGVRContext().getMainScene().getMainCameraRig());
+        final float[] initialPosition = new float[3];
+        initialPosition[0] = getTransform().getPositionX();
+        initialPosition[1] = getTransform().getPositionY();
+        initialPosition[2] = getTransform().getPositionZ();
+        final float[] newPosition = GVRAccessibilityUtils.calculatePointBetweenTwoObjects(this, getGVRContext().getMainScene().getMainCameraRig(),
+                distance + 2);
+
         if (!isAnimating) {
             isAnimating = true;
             if (isActive) {
-                new GVRRelativeMotionAnimation(this, duration, 0, 0, -2).start(getGVRContext().getAnimationEngine()).setOnFinish(new GVROnFinish() {
+                new GVRRelativeMotionAnimation(this, duration, newPosition[0] - initialPosition[0], newPosition[1] - initialPosition[1],
+                        newPosition[2] - initialPosition[2]).start(getGVRContext().getAnimationEngine()).setOnFinish(new GVROnFinish() {
 
                     @Override
                     public void finished(GVRAnimation animation) {
@@ -32,7 +41,8 @@ public class GVRAccessibilityItem extends GVRSceneObject {
 
                                     @Override
                                     public void finished(GVRAnimation animation) {
-                                        new GVRRelativeMotionAnimation(GVRAccessibilityItem.this, duration, 0, 0, 2).start(
+                                        new GVRRelativeMotionAnimation(GVRAccessibilityItem.this, duration, initialPosition[0] - newPosition[0],
+                                                initialPosition[1] - newPosition[1], initialPosition[2] - newPosition[2]).start(
                                                 getGVRContext().getAnimationEngine()).setOnFinish(new GVROnFinish() {
 
                                             @Override
@@ -45,7 +55,8 @@ public class GVRAccessibilityItem extends GVRSceneObject {
                     }
                 });
             } else {
-                new GVRRelativeMotionAnimation(this, duration, 0, 0, -2).start(getGVRContext().getAnimationEngine()).setOnFinish(new GVROnFinish() {
+                new GVRRelativeMotionAnimation(this, duration, newPosition[0] - initialPosition[0], newPosition[1] - initialPosition[1],
+                        newPosition[2] - initialPosition[2]).start(getGVRContext().getAnimationEngine()).setOnFinish(new GVROnFinish() {
 
                     @Override
                     public void finished(GVRAnimation animation) {
@@ -55,7 +66,8 @@ public class GVRAccessibilityItem extends GVRSceneObject {
 
                                     @Override
                                     public void finished(GVRAnimation animation) {
-                                        new GVRRelativeMotionAnimation(GVRAccessibilityItem.this, duration, 0, 0, 2).start(
+                                        new GVRRelativeMotionAnimation(GVRAccessibilityItem.this, duration, initialPosition[0] - newPosition[0],
+                                                initialPosition[1] - newPosition[1], initialPosition[2] - newPosition[2]).start(
                                                 getGVRContext().getAnimationEngine()).setOnFinish(new GVROnFinish() {
 
                                             @Override
