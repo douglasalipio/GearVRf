@@ -3,7 +3,7 @@ package org.gearvrf.accessibility;
 
 import org.gearvrf.animation.GVRInterpolator;
 
-public class GVRAccessibilityInterpolatorStrongEaseInOut implements GVRInterpolator {
+final class GVRAccessibilityInterpolatorStrongEaseInOut implements GVRInterpolator {
 
     private static GVRAccessibilityInterpolatorStrongEaseInOut sInstance = null;
 

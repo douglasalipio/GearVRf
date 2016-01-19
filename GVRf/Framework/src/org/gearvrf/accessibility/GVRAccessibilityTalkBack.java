@@ -1,13 +1,13 @@
 
 package org.gearvrf.accessibility;
 
-import java.util.Locale;
-
-import org.gearvrf.utility.Log;
-
 import android.content.Context;
 import android.speech.tts.TextToSpeech;
 import android.speech.tts.TextToSpeech.OnInitListener;
+
+import org.gearvrf.utility.Log;
+
+import java.util.Locale;
 
 /**
  * {@link GVRAccessibilityTalkBack} responsible for converting the value from a
@@ -42,8 +42,8 @@ public class GVRAccessibilityTalkBack {
     }
 
     /**
-     * Inicialize {@code TextToSpeech} and treats not supported languages
-     * exceptions setting a default language.
+     * Initialize {@code TextToSpeech} and treats unsupported languages
+     * exceptions by setting a default language.
      */
     private void init() {
 
@@ -90,9 +90,9 @@ public class GVRAccessibilityTalkBack {
     }
 
     /**
-     * Interrupts the current utterance (whether played or rendered to file) and
+     * Interrupts the current utterance (whether played or rendered to file),
      * discards other utterances in the queue and Releases the resources used by
-     * the TextToSpeech engine. It is good practice for instance to call this
+     * the TextToSpeech engine. It is good practice, for instance, to call this
      * method in the onDestroy() method of an Activity so the TextToSpeech
      * engine can be cleanly stopped.
      */

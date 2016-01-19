@@ -66,6 +66,7 @@ public class GVRAccessibilityScene extends GVRScene {
         mGvrContext = gvrContext;
         mMenuButton = menuButton;
         createDefaultSkyBox();
+        createItems();
         backToMainScene();
     }
 
@@ -89,6 +90,7 @@ public class GVRAccessibilityScene extends GVRScene {
         mMenuButton = menuButton;
         mBothEyesSkyBox = bothEyesSkyBox;
         createSkyBoxForBothEyes();
+        createItems();
         backToMainScene();
     }
 
@@ -110,6 +112,7 @@ public class GVRAccessibilityScene extends GVRScene {
         mGvrContext = gvrContext;
         mBothEyesSkyBox = bothEyeSkyBox;
         createSkyBoxForBothEyes();
+        createItems();
         backToMainScene();
     }
 
@@ -138,6 +141,7 @@ public class GVRAccessibilityScene extends GVRScene {
         mRightEye = rightEye;
         mLeftEye = leftEye;
         createSkyBoxLeftAndRightEye();
+        createItems();
         backToMainScene();
     }
 
@@ -165,6 +169,7 @@ public class GVRAccessibilityScene extends GVRScene {
         mRightEye = rightEye;
         mLeftEye = leftEye;
         createSkyBoxLeftAndRightEye();
+        createItems();
         backToMainScene();
     }
 
@@ -299,6 +304,20 @@ public class GVRAccessibilityScene extends GVRScene {
     private void createDefaultMenuButton() {
     }
 
+    /**
+     * Select and unselect a certain menu item. This serves to activate or
+     * deactivate accessibility functions. It is advisable that this method is
+     * called after a click on an item, but it can also be called in
+     * {@link org.gearvrf.GVRScript#onStep()} </br> It will only work if this
+     * scene is the main scene.</br>
+     * 
+     * <pre>
+     * public void onSingleTap(MotionEvent e) {
+     *     if (mGVRContext.getMainScene().equals(accessibilityScene)) {
+     *         gvrAccessibilityScene.interact();
+     *     }
+     * </pre>
+     */
     public void interact() {
         GVREyePointeeHolder[] eyePointeeHolders = GVRPicker.pickScene(this);
         for (GVREyePointeeHolder gvrEyePointeeHolder : eyePointeeHolders) {
