@@ -4,7 +4,7 @@ package org.gearvrf.accessibility;
 import org.gearvrf.GVRCameraRig;
 import org.gearvrf.GVRSceneObject;
 
-public class GVRAccessibilityUtils {
+final class GVRAccessibilityUtils {
 
     public static double distance(GVRSceneObject object, GVRCameraRig gvrCameraRig) {
         return Math.sqrt(Math.pow(object.getTransform().getPositionX()

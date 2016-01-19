@@ -10,7 +10,7 @@ import org.gearvrf.animation.GVROnFinish;
 import org.gearvrf.animation.GVRRelativeMotionAnimation;
 import org.gearvrf.animation.GVRRotationByAxisAnimation;
 
-public class GVRAccessibilityItem extends GVRSceneObject {
+final class GVRAccessibilityItem extends GVRSceneObject {
     private boolean isActive = false;
     private boolean isAnimating = false;
     private static final float duration = 0.35f;

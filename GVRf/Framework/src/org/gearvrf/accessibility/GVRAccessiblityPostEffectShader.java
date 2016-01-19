@@ -21,7 +21,7 @@ import org.gearvrf.GVRPostEffectMap;
 import org.gearvrf.GVRPostEffectShaderManager;
 
 /**
- * Shader used post process to invert colors from cameras rendered image.
+ * Shader to invert colors by post processing rendered image from cameras.
  */
 final class GVRAccessiblityPostEffectShader {
 
