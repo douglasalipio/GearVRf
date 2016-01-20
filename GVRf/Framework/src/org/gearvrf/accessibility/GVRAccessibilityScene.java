@@ -284,6 +284,23 @@ public class GVRAccessibilityScene extends GVRScene {
     }
 
     /**
+     * Update accessibility items position to fit user's skybox and camera
+     * position.
+     * 
+     * @param positionX
+     * @param positionY
+     * @param positionZ
+     */
+    public void setItemsRelativePosition(float positionX, float positionY, float positionZ) {
+        for (GVRSceneObject object : getWholeSceneObjects()) {
+            if (object instanceof GVRAccessibilityItem) {
+                object.getTransform().setPosition(object.getTransform().getPositionX() + positionX, object.getTransform().getPositionY() + positionY,
+                        object.getTransform().getPositionZ() + positionZ);
+            }
+        }
+    }
+
+    /**
      * Apply blur effect on SkyBox
      * 
      * @param skyBox
