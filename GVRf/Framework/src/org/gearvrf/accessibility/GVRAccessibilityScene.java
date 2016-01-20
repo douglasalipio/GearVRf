@@ -13,21 +13,6 @@ import org.gearvrf.R;
 /**
  * {@link GVRAccessibilityScene} is responsible for encapsulating all
  * accessibility features interactions.<br/>
- * It enables a menu with the following features each one having it's own
- * button: <br/>
- * <li>
- * {@link GVRAccessibilityTextSpeech} <li>
- * {@link GVRAccessibilityInvertedColors} <li>
- * {@link GVRAccessibilitySettings}
- * <li>
- * {@link GVRAccessibilityTalkBack} <li>
- * {@link GVRAccessibilityCaptions},
- * <li>
- * {@link GVRAccessibilityZoom}<br/>
- * </br> {@link GVRAccessibilityScene} instantiates a sky box and menu both
- * disabled and a button to add and remove them from the {@link GVRSceneObject}.
- * <br/>
- * <br/>
  * &nbsp; &nbsp;&nbsp; Add to scene in your project:
  * 
  * <pre>
@@ -57,6 +42,7 @@ public class GVRAccessibilityScene extends GVRScene {
         super(gvrContext);
         mGvrContext = gvrContext;
         createDefaultSkyBox();
+        backToMainScene();
     }
 
     /**
@@ -77,6 +63,7 @@ public class GVRAccessibilityScene extends GVRScene {
         mGvrContext = gvrContext;
         mMenuButton = menuButton;
         createDefaultSkyBox();
+        backToMainScene();
     }
 
     /**
@@ -99,6 +86,7 @@ public class GVRAccessibilityScene extends GVRScene {
         mMenuButton = menuButton;
         mBothEyesSkyBox = bothEyesSkyBox;
         createSkyBoxForBothEyes();
+        backToMainScene();
     }
 
     /**
@@ -119,6 +107,7 @@ public class GVRAccessibilityScene extends GVRScene {
         mGvrContext = gvrContext;
         mBothEyesSkyBox = bothEyeSkyBox;
         createSkyBoxForBothEyes();
+        backToMainScene();
     }
 
     /**
@@ -146,6 +135,7 @@ public class GVRAccessibilityScene extends GVRScene {
         mRightEye = rightEye;
         mLeftEye = leftEye;
         createSkyBoxLeftAndRightEye();
+        backToMainScene();
     }
 
     /**
@@ -172,6 +162,7 @@ public class GVRAccessibilityScene extends GVRScene {
         mRightEye = rightEye;
         mLeftEye = leftEye;
         createSkyBoxLeftAndRightEye();
+        backToMainScene();
     }
 
     /**
@@ -240,14 +231,10 @@ public class GVRAccessibilityScene extends GVRScene {
     }
 
     private void backToMainScene() {
-        mGvrContext.setMainScene(mGvrContext.getMainScene());
+        GVRAccessibilityMenu menu = new GVRAccessibilityMenu(mGvrContext);
+        this.addSceneObject(menu);
     }
 
     private void createDefaultMenuButton() {
-
-    }
-
-    private void addMenuButtonToMainScene() {
-
     }
 }
