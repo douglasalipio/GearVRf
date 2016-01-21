@@ -37,6 +37,7 @@ public class GVRAccessibilityManager {
         mSpeechRecognition = new GVRAccessibilitySpeechRecognition();
         mInvertedColors = new GVRAccessibilityInvertedColors(gvrContext);
         mCaptions = GVRAccessibilityCaptions.getInstance(gvrContext);
+        mAccessiblityScene = new GVRAccessibilityScene(gvrContext, this);
     }
 
     public GVRAccessibilityTalkBack getTalkBack() {
@@ -47,7 +48,7 @@ public class GVRAccessibilityManager {
         return mSpeechRecognition;
     }
 
-    public GVRAccessibilityInvertedColors getINvertedColors() {
+    public GVRAccessibilityInvertedColors getInvertedColors() {
         return mInvertedColors;
     }
 

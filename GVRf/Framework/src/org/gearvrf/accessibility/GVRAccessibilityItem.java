@@ -3,15 +3,14 @@ package org.gearvrf.accessibility;
 
 import org.gearvrf.GVRContext;
 import org.gearvrf.GVRMesh;
-import org.gearvrf.GVRSceneObject;
 import org.gearvrf.GVRTexture;
 import org.gearvrf.animation.GVRAnimation;
 import org.gearvrf.animation.GVROnFinish;
 import org.gearvrf.animation.GVRRelativeMotionAnimation;
 import org.gearvrf.animation.GVRRotationByAxisAnimation;
 
-final class GVRAccessibilityItem extends GVRSceneObject {
-    private boolean isActive = false;
+final class GVRAccessibilityItem extends GVRAccessibilityInteractiveObject {
+    protected boolean isActive = false;
     private boolean isAnimating = false;
     private static final float duration = 0.35f;
 
@@ -19,7 +18,8 @@ final class GVRAccessibilityItem extends GVRSceneObject {
         super(gvrContext, mesh, texture);
     }
 
-    public void click() {
+    @Override
+    public void interact() {
         float distance = (float) GVRAccessibilityUtils.distance(this, getGVRContext().getMainScene().getMainCameraRig());
         final float[] initialPosition = new float[3];
         initialPosition[0] = getTransform().getPositionX();
@@ -53,6 +53,7 @@ final class GVRAccessibilityItem extends GVRSceneObject {
                                                             @Override
                                                             public void finished(GVRAnimation animation) {
                                                                 isAnimating = false;
+
                                                             }
                                                         });
                                             }
@@ -82,6 +83,7 @@ final class GVRAccessibilityItem extends GVRSceneObject {
                                                             @Override
                                                             public void finished(GVRAnimation animation) {
                                                                 isAnimating = false;
+
                                                             }
                                                         });
                                             }
@@ -91,6 +93,15 @@ final class GVRAccessibilityItem extends GVRSceneObject {
             }
             isActive = !isActive;
         }
+    }
+
+    public void setAction() {
+
+    }
+
+    @Override
+    public void doAction() {
+
     }
 
 }

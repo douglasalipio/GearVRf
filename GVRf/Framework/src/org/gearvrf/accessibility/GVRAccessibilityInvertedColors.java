@@ -10,6 +10,7 @@ public class GVRAccessibilityInvertedColors {
     private GVRAccessibilityPostEffectShader shaderManager;
     private GVRContext mGvrContext;
     private boolean hasPostEffect;
+    private GVRAccessibilityItem mAccessibilityItem;
 
     /**
      * Initialize {@link GVRPostEffect}
@@ -42,12 +43,17 @@ public class GVRAccessibilityInvertedColors {
      * Switch inverted colors between on/off state.
      */
     public void switchState() {
-
-        if (!hasPostEffect) {
-            turnOn();
-        } else {
-            turnOff();
+        if (mAccessibilityItem.isActive) {
+            if (!hasPostEffect) {
+                turnOn();
+            } else {
+                turnOff();
+            }
+            hasPostEffect = !hasPostEffect;
         }
-        hasPostEffect = !hasPostEffect;
+    }
+
+    public void setAccessibilityItem(GVRAccessibilityItem accessibilityItem) {
+        mAccessibilityItem = accessibilityItem;
     }
 }

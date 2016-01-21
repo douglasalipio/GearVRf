@@ -1,13 +1,13 @@
 
 package org.gearvrf.accessibility;
 
-import android.content.Context;
-import android.speech.tts.TextToSpeech;
-import android.speech.tts.TextToSpeech.OnInitListener;
+import java.util.Locale;
 
 import org.gearvrf.utility.Log;
 
-import java.util.Locale;
+import android.content.Context;
+import android.speech.tts.TextToSpeech;
+import android.speech.tts.TextToSpeech.OnInitListener;
 
 /**
  * {@link GVRAccessibilityTalkBack} responsible for converting the value from a
@@ -19,6 +19,7 @@ public class GVRAccessibilityTalkBack {
     private Locale mLocale;
     private Context mContext;
     private String mText;
+    private GVRAccessibilityItem mAccessibilityItem;
     private static final String TAG = Log.tag(GVRAccessibilityTalkBack.class);
 
     /**
@@ -77,7 +78,10 @@ public class GVRAccessibilityTalkBack {
     }
 
     public void speak() {
-        mTextToSpeech.speak(mText, TextToSpeech.QUEUE_FLUSH, null);
+
+        if (mAccessibilityItem.isActive)
+            mTextToSpeech.speak(mText, TextToSpeech.QUEUE_FLUSH, null);
+
     }
 
     public String getText() {
@@ -115,4 +119,7 @@ public class GVRAccessibilityTalkBack {
             mLocale = mContext.getResources().getConfiguration().locale;
     }
 
+    public void setAccessibilityItem(GVRAccessibilityItem accessibilityItem) {
+        mAccessibilityItem = accessibilityItem;
+    }
 }

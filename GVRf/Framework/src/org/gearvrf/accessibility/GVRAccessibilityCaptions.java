@@ -16,15 +16,15 @@
 
 package org.gearvrf.accessibility;
 
-import android.graphics.Color;
-import android.graphics.Typeface;
-import android.view.Gravity;
-
 import org.gearvrf.GVRContext;
 import org.gearvrf.GVRRenderData.GVRRenderMaskBit;
 import org.gearvrf.periodic.GVRPeriodicEngine.PeriodicEvent;
 import org.gearvrf.scene_objects.GVRViewSceneObject;
 import org.gearvrf.scene_objects.view.GVRTextView;
+
+import android.graphics.Color;
+import android.graphics.Typeface;
+import android.view.Gravity;
 
 /**
  * Object that generates subtitle information. It is created in a fixed
@@ -49,7 +49,8 @@ public class GVRAccessibilityCaptions {
     private GVRTextView mTextViewL;
     private GVRViewSceneObject mViewSceneObjectR;
     private GVRViewSceneObject mViewSceneObjectL;
-    private boolean isActive = true;
+    private boolean isShown = true;
+    private GVRAccessibilityItem mAccessibilityItem;
 
     /**
      * Creates a single instance of captions
@@ -118,9 +119,11 @@ public class GVRAccessibilityCaptions {
      * @param text
      */
     public void setText(final CharSequence text) {
-        if (isActive) {
-            mGvrContext.getMainScene().getMainCameraRig().getRightCamera().addChildObject(mViewSceneObjectR);
-            mGvrContext.getMainScene().getMainCameraRig().getLeftCamera().addChildObject(mViewSceneObjectL);
+        if (isShown) {
+            if (mAccessibilityItem.isActive) {
+                mGvrContext.getMainScene().getMainCameraRig().getRightCamera().addChildObject(mViewSceneObjectR);
+                mGvrContext.getMainScene().getMainCameraRig().getLeftCamera().addChildObject(mViewSceneObjectL);
+            }
 
             removeSubtitlesAfterDuration();
 
@@ -181,7 +184,8 @@ public class GVRAccessibilityCaptions {
     }
 
     /**
-     * Set how much time captions will be shown. The default value is {@link #INFINITE_DURATION}
+     * Set how much time captions will be shown. The default value is
+     * {@link #INFINITE_DURATION}
      * 
      * @param duration
      */
@@ -204,20 +208,28 @@ public class GVRAccessibilityCaptions {
      * Show captions for given duration
      */
     public void show() {
-        isActive = true;
+
+        isShown = true;
         setText(getText());
+
     }
 
     /**
      * Immediately hide captions
      */
     public void hide() {
-        isActive = false;
+
+        isShown = false;
         if (event != null) {
             event.cancel();
         }
         mGvrContext.getMainScene().getMainCameraRig().getRightCamera().removeChildObject(mViewSceneObjectR);
         mGvrContext.getMainScene().getMainCameraRig().getLeftCamera().removeChildObject(mViewSceneObjectL);
+
+    }
+
+    public void setAccessibilityItem(GVRAccessibilityItem accessibilityItem) {
+        mAccessibilityItem = accessibilityItem;
     }
 
 }
