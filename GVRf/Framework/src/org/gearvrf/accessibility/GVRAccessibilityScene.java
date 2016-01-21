@@ -24,7 +24,7 @@ import org.gearvrf.R;
  */
 public class GVRAccessibilityScene extends GVRScene {
 
-    private GVRAccessibilityButton mMenuButton;
+    private GVRAccessibilityObject mMenuButton;
     private GVRSceneObject mRightEye;
     private GVRSceneObject mLeftEye;
     private GVRSceneObject mBothEyesSkyBox;
@@ -61,7 +61,7 @@ public class GVRAccessibilityScene extends GVRScene {
      * @param gvrContext
      * @param menuButton for enable accessibility menu.
      */
-    public GVRAccessibilityScene(GVRContext gvrContext, GVRAccessibilityButton menuButton) {
+    public GVRAccessibilityScene(GVRContext gvrContext, GVRAccessibilityObject menuButton) {
         super(gvrContext);
         mGvrContext = gvrContext;
         mMenuButton = menuButton;
@@ -84,7 +84,7 @@ public class GVRAccessibilityScene extends GVRScene {
      * @param gvrContext
      * @param menuButton
      */
-    public GVRAccessibilityScene(GVRContext gvrContext, GVRSceneObject bothEyesSkyBox, GVRAccessibilityButton menuButton) {
+    public GVRAccessibilityScene(GVRContext gvrContext, GVRSceneObject bothEyesSkyBox, GVRAccessibilityObject menuButton) {
         super(gvrContext);
         mGvrContext = gvrContext;
         mMenuButton = menuButton;
@@ -134,7 +134,7 @@ public class GVRAccessibilityScene extends GVRScene {
      * @param texture
      * @param menuButton
      */
-    public GVRAccessibilityScene(GVRContext gvrContext, GVRSceneObject rightEye, GVRSceneObject leftEye, GVRAccessibilityButton menuButton) {
+    public GVRAccessibilityScene(GVRContext gvrContext, GVRSceneObject rightEye, GVRSceneObject leftEye, GVRAccessibilityObject menuButton) {
         super(gvrContext);
         mGvrContext = gvrContext;
         mMenuButton = menuButton;
