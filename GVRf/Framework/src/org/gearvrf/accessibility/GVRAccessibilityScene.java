@@ -69,7 +69,7 @@ public class GVRAccessibilityScene extends GVRScene {
      * @param leftEye
      */
     public void setSkyBox(GVRSceneObject rightEyeSkyBox, GVRSceneObject leftEyeSkyBox) {
-        removeSceneObject(mBothEyesSkyBox);
+        removePreviousSkybox();
         mRightEyeSkyBox = rightEyeSkyBox;
         mLeftEyeSkyBox = leftEyeSkyBox;
 
@@ -100,13 +100,27 @@ public class GVRAccessibilityScene extends GVRScene {
      * @param bothEyeSkyBox
      */
     public void setSkybox(GVRSceneObject bothEyesSkyBox) {
+        removePreviousSkybox();
         mBothEyesSkyBox = bothEyesSkyBox;
-        removeSceneObject(mRightEyeSkyBox);
-        removeSceneObject(mLeftEyeSkyBox);
+
         mBothEyesSkyBox.getRenderData().setRenderingOrder(0);
         applyShaderOnSkyBox(mBothEyesSkyBox);
         addSceneObject(mBothEyesSkyBox);
+    }
 
+    private void removePreviousSkybox() {
+        if (mBothEyesSkyBox != null) {
+            removeSceneObject(mBothEyesSkyBox);
+            mBothEyesSkyBox = null;
+        }
+        if (mRightEyeSkyBox != null) {
+            removeSceneObject(mRightEyeSkyBox);
+            mRightEyeSkyBox = null;
+        }
+        if (mLeftEyeSkyBox != null) {
+            removeSceneObject(mLeftEyeSkyBox);
+            mLeftEyeSkyBox = null;
+        }
     }
 
     /**
