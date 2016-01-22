@@ -15,7 +15,7 @@ import android.util.Log;
 
 public class GVRAccessibilityMenu extends GVRSceneObject {
 
-    private List<GVRAccessibilityObject> menuItems;
+    private List<GVRSceneObject> menuItems;
     private GVRContext mGvrContext;
 
     public GVRAccessibilityMenu(GVRContext gvrContext) {
@@ -30,10 +30,10 @@ public class GVRAccessibilityMenu extends GVRSceneObject {
         GVRMesh slot1Mesh = mGvrContext.loadMesh(new GVRAndroidResource(mGvrContext, R.raw.circle_menu));
         GVRTexture slot1Texture = mGvrContext.loadTexture(new GVRAndroidResource(mGvrContext, R.drawable.circle_normal));
         GVRTexture backTexture = mGvrContext.loadTexture(new GVRAndroidResource(mGvrContext, R.drawable.circle_normal_alpha));
-        menuItems = new ArrayList<GVRAccessibilityObject>();
+        menuItems = new ArrayList<GVRSceneObject>();
         for (int i = 0; i < 8; i++) {
             float degreeNormal = 360.0f * i / (8);
-            GVRAccessibilityObject menuItem = new GVRAccessibilityObject(mGvrContext, slot1Mesh, slot1Texture);
+            GVRSceneObject menuItem = new GVRSceneObject(mGvrContext, slot1Mesh, slot1Texture);
             menuItems.add(menuItem);
             menuItem.getTransform().setPosition(0, -1f, 0);
             menuItem.getTransform().rotateByAxis(degreeNormal, 0, 1, 0);

@@ -67,8 +67,8 @@ public class GVRAccessibilityManager {
      * @param gvrContext
      * @return
      */
-    public GVRAccessibilityObject createDefaultButton() {
-        GVRAccessibilityObject accessibilityobject = new GVRAccessibilityObject(mGvrContext, mGvrContext.createQuad(1f, 1f),
+    public GVRSceneObject createDefaultButton() {
+        GVRSceneObject accessibilityobject = new GVRSceneObject(mGvrContext, mGvrContext.createQuad(1f, 1f),
                 mGvrContext.loadTexture(new GVRAndroidResource(mGvrContext, R.drawable.skybox_accessibility)));
         accessibilityobject.getTransform().setPosition(0.0f, 1.5f, -5.0f);
         return accessibilityobject;
