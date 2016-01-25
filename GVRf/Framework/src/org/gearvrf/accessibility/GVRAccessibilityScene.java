@@ -28,6 +28,7 @@ public class GVRAccessibilityScene extends GVRScene {
     private GVRSceneObject mLeftEyeSkyBox;
     private GVRSceneObject mBothEyesSkyBox;
     private GVRContext mGvrContext;
+    public static GVRScene mainSceneApplication;
     private GVRAccessibilityManager mAccessibilityManager;
 
     /**
@@ -44,6 +45,7 @@ public class GVRAccessibilityScene extends GVRScene {
         super(gvrContext);
         mGvrContext = gvrContext;
         mAccessibilityManager = accessibilityManager;
+        mainSceneApplication = gvrContext.getMainScene();
         createDefaultSkyBox();
         createItems();
         backToMainScene();
@@ -166,7 +168,6 @@ public class GVRAccessibilityScene extends GVRScene {
         captions.getTransform().setPosition(positionX, positionY, positionZ);
         captions.getTransform().setScale(scale, scale, scale);
         captions.attachEyePointeeHolder();
-        captions.setAction();
         mAccessibilityManager.getCaptions().setAccessibilityItem(captions);
         this.addSceneObject(captions);
 
@@ -223,6 +224,7 @@ public class GVRAccessibilityScene extends GVRScene {
 
     private void backToMainScene() {
         GVRAccessibilityMenu menu = new GVRAccessibilityMenu(mGvrContext);
+        menu.attachEyePointeeHolder();
         this.addSceneObject(menu);
     }
 

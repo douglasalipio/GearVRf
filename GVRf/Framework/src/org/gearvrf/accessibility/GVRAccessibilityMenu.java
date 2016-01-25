@@ -11,8 +11,6 @@ import org.gearvrf.GVRSceneObject;
 import org.gearvrf.GVRTexture;
 import org.gearvrf.R;
 
-import android.util.Log;
-
 public class GVRAccessibilityMenu extends GVRSceneObject {
 
     private List<GVRSceneObject> menuItems;
@@ -21,7 +19,7 @@ public class GVRAccessibilityMenu extends GVRSceneObject {
     public GVRAccessibilityMenu(GVRContext gvrContext) {
         super(gvrContext);
 
-        this.mGvrContext = gvrContext;
+        mGvrContext = gvrContext;
         createMenuItems();
         createBackButton();
     }
@@ -33,14 +31,23 @@ public class GVRAccessibilityMenu extends GVRSceneObject {
         menuItems = new ArrayList<GVRSceneObject>();
         for (int i = 0; i < 8; i++) {
             float degreeNormal = 360.0f * i / (8);
-            GVRSceneObject menuItem = new GVRSceneObject(mGvrContext, slot1Mesh, slot1Texture);
+            GVRAccessibilityMenuItem menuItem = new GVRAccessibilityMenuItem(mGvrContext, slot1Mesh, slot1Texture);
             menuItems.add(menuItem);
             menuItem.getTransform().setPosition(0, -1f, 0);
             menuItem.getTransform().rotateByAxis(degreeNormal, 0, 1, 0);
             addChildObject(menuItem);
-            Log.e("test", "position object - " + i + " - degree " + degreeNormal);
+
             if (i == 3) {
+                menuItem.setOnAction(new GVRAccessibilityOnAction() {
+
+                    @Override
+                    public void setOnAction() {
+                        getGVRContext().setMainScene(GVRAccessibilityScene.mainSceneApplication);
+                    }
+                });
                 menuItem.getRenderData().getMaterial().setMainTexture(backTexture);
+                menuItem.attachEyePointeeHolder();
+
             }
         }
     }
@@ -53,4 +60,5 @@ public class GVRAccessibilityMenu extends GVRSceneObject {
         backButton.getTransform().rotateByAxis(35, 0, 1, 0);
         addChildObject(backButton);
     }
+
 }

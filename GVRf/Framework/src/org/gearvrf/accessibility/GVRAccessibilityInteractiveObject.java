@@ -6,13 +6,25 @@ import org.gearvrf.GVRMesh;
 import org.gearvrf.GVRSceneObject;
 import org.gearvrf.GVRTexture;
 
-abstract class GVRAccessibilityInteractiveObject extends GVRSceneObject {
+class GVRAccessibilityInteractiveObject extends GVRSceneObject {
+
+    private GVRAccessibilityOnAction mOnAction;
 
     public GVRAccessibilityInteractiveObject(GVRContext gvrContext, GVRMesh mesh, GVRTexture texture) {
         super(gvrContext, mesh, texture);
     }
 
-    public abstract void interact();
+    public GVRAccessibilityInteractiveObject(GVRContext gvrContext) {
+        super(gvrContext);
+    }
 
-    public abstract void doAction();
+    public void interact() {
+        if (mOnAction != null)
+            mOnAction.setOnAction();
+    }
+
+    public void setOnAction(GVRAccessibilityOnAction onAction) {
+        this.mOnAction = onAction;
+    }
+
 }

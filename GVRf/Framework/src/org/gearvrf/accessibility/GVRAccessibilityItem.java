@@ -95,13 +95,4 @@ final class GVRAccessibilityItem extends GVRAccessibilityInteractiveObject {
         }
     }
 
-    public void setAction() {
-
-    }
-
-    @Override
-    public void doAction() {
-
-    }
-
 }
