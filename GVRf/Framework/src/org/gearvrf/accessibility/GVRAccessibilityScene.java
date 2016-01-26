@@ -28,7 +28,7 @@ public class GVRAccessibilityScene extends GVRScene {
     private GVRSceneObject mLeftEyeSkyBox;
     private GVRSceneObject mBothEyesSkyBox;
     private GVRContext mGvrContext;
-    public static GVRScene mainSceneApplication;
+
     private GVRAccessibilityManager mAccessibilityManager;
 
     /**
@@ -41,11 +41,10 @@ public class GVRAccessibilityScene extends GVRScene {
      * 
      * @param gvrContext
      */
-    protected GVRAccessibilityScene(GVRContext gvrContext, GVRAccessibilityManager accessibilityManager) {
+    public GVRAccessibilityScene(GVRContext gvrContext, GVRAccessibilityManager accessibilityManager) {
         super(gvrContext);
         mGvrContext = gvrContext;
         mAccessibilityManager = accessibilityManager;
-        mainSceneApplication = gvrContext.getMainScene();
         createDefaultSkyBox();
         createItems();
         backToMainScene();
@@ -186,10 +185,6 @@ public class GVRAccessibilityScene extends GVRScene {
         speech.getTransform().rotateByAxisWithPivot(0 * angle, 0, 1, 0, 0, 0, 0);
         captions.getTransform().rotateByAxisWithPivot(1 * angle, 0, 1, 0, 0, 0, 0);
         settings.getTransform().rotateByAxisWithPivot(2 * angle, 0, 1, 0, 0, 0, 0);
-    }
-
-    private void createButtonBackMainScene() {
-
     }
 
     /**

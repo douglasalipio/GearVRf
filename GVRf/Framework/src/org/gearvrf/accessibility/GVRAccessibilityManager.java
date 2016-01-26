@@ -3,6 +3,7 @@ package org.gearvrf.accessibility;
 
 import org.gearvrf.GVRAndroidResource;
 import org.gearvrf.GVRContext;
+import org.gearvrf.GVRScene;
 import org.gearvrf.GVRSceneObject;
 import org.gearvrf.R;
 
@@ -29,15 +30,15 @@ public class GVRAccessibilityManager {
     private GVRAccessibilitySpeechRecognition mSpeechRecognition;
     private GVRAccessibilityInvertedColors mInvertedColors;
     private GVRAccessibilityCaptions mCaptions;
-    private GVRAccessibilityScene mAccessiblityScene;
+    protected static GVRScene mMainSceneApplication;
 
-    public GVRAccessibilityManager(GVRContext gvrContext) {
-        this.mGvrContext = gvrContext;
+    public GVRAccessibilityManager(GVRContext gvrContext, GVRScene mainScene) {
+        mGvrContext = gvrContext;
         mTalkBack = new GVRAccessibilityTalkBack(gvrContext.getActivity());
         mSpeechRecognition = new GVRAccessibilitySpeechRecognition();
         mInvertedColors = new GVRAccessibilityInvertedColors(gvrContext);
         mCaptions = GVRAccessibilityCaptions.getInstance(gvrContext);
-        mAccessiblityScene = new GVRAccessibilityScene(gvrContext, this);
+        mMainSceneApplication = mainScene;
     }
 
     public GVRAccessibilityTalkBack getTalkBack() {
@@ -56,10 +57,6 @@ public class GVRAccessibilityManager {
         return mCaptions;
     }
 
-    public GVRAccessibilityScene getAccessiblityScene() {
-        return mAccessiblityScene;
-    }
-
     /**
      * Create a default button in position x=0, y=0 and z=0 to start
      * accessibility mode
@@ -68,9 +65,10 @@ public class GVRAccessibilityManager {
      * @return
      */
     public GVRSceneObject createDefaultButton() {
-        GVRSceneObject accessibilityobject = new GVRSceneObject(mGvrContext, mGvrContext.createQuad(1f, 1f),
+        GVRSceneObject accessibilityObject = new GVRSceneObject(mGvrContext, mGvrContext.createQuad(.4f, .4f),
                 mGvrContext.loadTexture(new GVRAndroidResource(mGvrContext, R.drawable.skybox_accessibility)));
-        accessibilityobject.getTransform().setPosition(0.0f, 1.5f, -5.0f);
-        return accessibilityobject;
+        // accessibilityObject.getTransform().setPosition(0.0f, 1.5f, 0f);
+        return accessibilityObject;
     }
+
 }
