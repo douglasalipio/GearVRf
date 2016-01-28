@@ -50,7 +50,7 @@ public class GVRAccessibilityCaptions {
     private GVRViewSceneObject mViewSceneObjectR;
     private GVRViewSceneObject mViewSceneObjectL;
     private boolean isShown = true;
-    private GVRAccessibilityItem mAccessibilityItem;
+    
 
     /**
      * Creates a single instance of captions
@@ -120,10 +120,10 @@ public class GVRAccessibilityCaptions {
      */
     public void setText(final CharSequence text) {
         if (isShown) {
-            if (mAccessibilityItem.isActive) {
-                mGvrContext.getMainScene().getMainCameraRig().getRightCamera().addChildObject(mViewSceneObjectR);
-                mGvrContext.getMainScene().getMainCameraRig().getLeftCamera().addChildObject(mViewSceneObjectL);
-            }
+//            if (mAccessibilityItem.isActive) {
+//                mGvrContext.getMainScene().getMainCameraRig().getRightCamera().addChildObject(mViewSceneObjectR);
+//                mGvrContext.getMainScene().getMainCameraRig().getLeftCamera().addChildObject(mViewSceneObjectL);
+//            }
 
             removeSubtitlesAfterDuration();
 
@@ -228,8 +228,5 @@ public class GVRAccessibilityCaptions {
 
     }
 
-    public void setAccessibilityItem(GVRAccessibilityItem accessibilityItem) {
-        mAccessibilityItem = accessibilityItem;
-    }
 
 }

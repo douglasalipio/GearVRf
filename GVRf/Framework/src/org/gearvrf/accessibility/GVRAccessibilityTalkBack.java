@@ -19,7 +19,7 @@ public class GVRAccessibilityTalkBack {
     private Locale mLocale;
     private Context mContext;
     private String mText;
-    private GVRAccessibilityItem mAccessibilityItem;
+    
     private static final String TAG = Log.tag(GVRAccessibilityTalkBack.class);
 
     /**
@@ -79,8 +79,8 @@ public class GVRAccessibilityTalkBack {
 
     public void speak() {
 
-        if (mAccessibilityItem.isActive)
-            mTextToSpeech.speak(mText, TextToSpeech.QUEUE_FLUSH, null);
+//        if (mAccessibilityItem.isActive)
+//            mTextToSpeech.speak(mText, TextToSpeech.QUEUE_FLUSH, null);
 
     }
 
@@ -119,7 +119,5 @@ public class GVRAccessibilityTalkBack {
             mLocale = mContext.getResources().getConfiguration().locale;
     }
 
-    public void setAccessibilityItem(GVRAccessibilityItem accessibilityItem) {
-        mAccessibilityItem = accessibilityItem;
-    }
+   
 }

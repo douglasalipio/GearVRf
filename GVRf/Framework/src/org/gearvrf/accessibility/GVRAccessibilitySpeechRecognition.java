@@ -1,4 +1,3 @@
-
 package org.gearvrf.accessibility;
 
 /**
@@ -8,9 +7,4 @@ package org.gearvrf.accessibility;
  */
 public class GVRAccessibilitySpeechRecognition {
 
-    private GVRAccessibilityItem mAccessibilityItem;
-
-    public void setAccessibilityItem(GVRAccessibilityItem accessibilityItem) {
-        mAccessibilityItem = accessibilityItem;
-    }
 }
