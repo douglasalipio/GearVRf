@@ -1,4 +1,3 @@
-
 package org.gearvrf.accessibility;
 
 import java.util.Locale;
@@ -10,8 +9,7 @@ import android.speech.tts.TextToSpeech;
 import android.speech.tts.TextToSpeech.OnInitListener;
 
 /**
- * {@link GVRAccessibilityTalkBack} responsible for converting the value from a
- * string variable to audio.
+ * {@link GVRAccessibilityTalkBack} responsible for converting the value from a string variable to audio.
  */
 public class GVRAccessibilityTalkBack {
 
@@ -19,13 +17,17 @@ public class GVRAccessibilityTalkBack {
     private Locale mLocale;
     private Context mContext;
     private String mText;
-    
+    private boolean mActive;
+
     private static final String TAG = Log.tag(GVRAccessibilityTalkBack.class);
 
     /**
-     * @param locale target language
-     * @param context Android context
-     * @param text to be converted
+     * @param locale
+     *            target language
+     * @param context
+     *            Android context
+     * @param text
+     *            to be converted
      */
     public GVRAccessibilityTalkBack(Locale locale, Context context, String text) {
         mText = text;
@@ -35,7 +37,8 @@ public class GVRAccessibilityTalkBack {
     }
 
     /**
-     * @param context Android context.
+     * @param Android
+     *            context.
      */
     public GVRAccessibilityTalkBack(Context context) {
         mContext = context;
@@ -43,8 +46,7 @@ public class GVRAccessibilityTalkBack {
     }
 
     /**
-     * Initialize {@code TextToSpeech} and treats unsupported languages
-     * exceptions by setting a default language.
+     * Initialize {@code TextToSpeech} and treats unsupported languages exceptions by setting a default language.
      */
     private void init() {
 
@@ -79,8 +81,8 @@ public class GVRAccessibilityTalkBack {
 
     public void speak() {
 
-//        if (mAccessibilityItem.isActive)
-//            mTextToSpeech.speak(mText, TextToSpeech.QUEUE_FLUSH, null);
+        if(isActive())
+            mTextToSpeech.speak(mText, TextToSpeech.QUEUE_FLUSH, null);
 
     }
 
@@ -94,15 +96,22 @@ public class GVRAccessibilityTalkBack {
     }
 
     /**
-     * Interrupts the current utterance (whether played or rendered to file),
-     * discards other utterances in the queue and Releases the resources used by
-     * the TextToSpeech engine. It is good practice, for instance, to call this
-     * method in the onDestroy() method of an Activity so the TextToSpeech
-     * engine can be cleanly stopped.
+     * Interrupts the current utterance (whether played or rendered to file), discards other utterances in the queue and Releases the resources used by the TextToSpeech engine. It is good practice, for instance, to call this method in the onDestroy()
+     * method of an Activity so the TextToSpeech engine can be cleanly stopped.
      */
     public void shutdown() {
         mTextToSpeech.stop();
         mTextToSpeech.shutdown();
+    }
+    
+    
+
+    public boolean isActive() {
+        return mActive;
+    }
+
+    public void setActive(boolean active) {
+        this.mActive = active;
     }
 
     /**
@@ -119,5 +128,4 @@ public class GVRAccessibilityTalkBack {
             mLocale = mContext.getResources().getConfiguration().locale;
     }
 
-   
 }
