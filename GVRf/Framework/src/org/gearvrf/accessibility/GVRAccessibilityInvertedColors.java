@@ -9,7 +9,7 @@ public class GVRAccessibilityInvertedColors {
     private GVRPostEffect postEffect;
     private GVRAccessibilityPostEffectShader shaderManager;
     private GVRContext mGvrContext;
-    private boolean hasPostEffect;
+    private boolean isInverted;
 
     /**
      * Initialize {@link GVRPostEffect}
@@ -29,32 +29,24 @@ public class GVRAccessibilityInvertedColors {
         });
     }
 
-    private void turnOn(GVRScene scene) {
+    public void turnOn(GVRScene scene) {
         scene.getMainCameraRig().getLeftCamera()
                 .addPostEffect(postEffect);
         scene.getMainCameraRig().getRightCamera()
                 .addPostEffect(postEffect);
+        isInverted = true;
     }
 
-    private void turnOff(GVRScene scene) {
+    public void turnOff(GVRScene scene) {
         scene.getMainCameraRig().getLeftCamera()
                 .removePostEffect(postEffect);
         scene.getMainCameraRig().getRightCamera()
                 .removePostEffect(postEffect);
+        isInverted = false;
     }
 
-    /**
-     * Switch inverted colors between on/off state.
-     */
-    public void switchState(GVRScene scene) {
-
-        if (!hasPostEffect) {
-            turnOn(scene);
-        } else {
-            turnOff(scene);
-        }
-        hasPostEffect = !hasPostEffect;
-
+    public boolean isInverted() {
+        return isInverted;
     }
 
 }
