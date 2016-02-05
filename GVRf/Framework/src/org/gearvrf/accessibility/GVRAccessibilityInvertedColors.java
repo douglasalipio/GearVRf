@@ -1,3 +1,4 @@
+
 package org.gearvrf.accessibility;
 
 import org.gearvrf.GVRContext;
@@ -29,19 +30,23 @@ public class GVRAccessibilityInvertedColors {
         });
     }
 
-    public void turnOn(GVRScene scene) {
-        scene.getMainCameraRig().getLeftCamera()
-                .addPostEffect(postEffect);
-        scene.getMainCameraRig().getRightCamera()
-                .addPostEffect(postEffect);
+    public void turnOn(GVRScene... scene) {
+        for (GVRScene gvrScene : scene) {
+            gvrScene.getMainCameraRig().getLeftCamera()
+                    .addPostEffect(postEffect);
+            gvrScene.getMainCameraRig().getRightCamera()
+                    .addPostEffect(postEffect);
+        }
         isInverted = true;
     }
 
-    public void turnOff(GVRScene scene) {
-        scene.getMainCameraRig().getLeftCamera()
-                .removePostEffect(postEffect);
-        scene.getMainCameraRig().getRightCamera()
-                .removePostEffect(postEffect);
+    public void turnOff(GVRScene... scene) {
+        for (GVRScene gvrScene : scene) {
+            gvrScene.getMainCameraRig().getLeftCamera()
+                    .removePostEffect(postEffect);
+            gvrScene.getMainCameraRig().getRightCamera()
+                    .removePostEffect(postEffect);
+        }
         isInverted = false;
     }
 
