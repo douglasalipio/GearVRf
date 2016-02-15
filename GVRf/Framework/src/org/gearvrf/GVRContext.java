@@ -26,17 +26,20 @@ import org.gearvrf.GVRAndroidResource.BitmapTextureCallback;
 import org.gearvrf.GVRAndroidResource.CompressedTextureCallback;
 import org.gearvrf.GVRAndroidResource.MeshCallback;
 import org.gearvrf.GVRAndroidResource.TextureCallback;
+import org.gearvrf.GVRHybridObject.NativeCleanupHandler;
 import org.gearvrf.animation.GVRAnimation;
 import org.gearvrf.animation.GVRAnimationEngine;
 import org.gearvrf.asynchronous.GVRAsynchronousResourceLoader;
 import org.gearvrf.asynchronous.GVRCompressedTexture;
 import org.gearvrf.asynchronous.GVRCompressedTextureLoader;
+import org.gearvrf.debug.DebugServer;
 import org.gearvrf.io.GVRInputManager;
 import org.gearvrf.periodic.GVRPeriodicEngine;
 import org.gearvrf.scene_objects.GVRModelSceneObject;
 import org.gearvrf.script.GVRScriptManager;
 import org.gearvrf.utility.Log;
 import org.gearvrf.utility.ResourceCache;
+import org.gearvrf.utility.Threads;
 
 import android.app.Activity;
 import android.content.Context;
@@ -129,6 +132,9 @@ public abstract class GVRContext {
 
     // Max anisotropic value if supported and -1 otherwise
     public int maxAnisotropicValue = -1;
+
+    // Debug server
+    protected DebugServer mDebugServer;
 
     /*
      * Methods
@@ -949,7 +955,7 @@ public abstract class GVRContext {
      * <p>
      * Note that this method may take hundreds of milliseconds to return: unless
      * the cube map is quite tiny, you probably don't want to call this directly
-     * from your {@link GVRScript#onStep() onStsep()} callback as that is called
+     * from your {@link GVRScript#onStep() onStep()} callback as that is called
      * once per frame, and a long call will cause you to miss frames.
      * 
      * @param resourceArray
@@ -1906,6 +1912,47 @@ public abstract class GVRContext {
     }
 
     /**
+     * Start a debug server on the default TCP/IP port for the default number
+     * of clients.
+     */
+    public void startDebugServer() {
+        startDebugServer(DebugServer.DEFAULT_DEBUG_PORT, DebugServer.NUM_CLIENTS);
+    }
+
+    /**
+     * Start a debug server on a specified TCP/IP port, allowing a specified number
+     * of concurrent clients.
+     *
+     * @param port
+     *     The port number for the TCP/IP server.
+     * @param maxClients
+     *     The maximum number of concurrent clients.
+     */
+    public synchronized void startDebugServer(int port, int maxClients) {
+        if (mDebugServer != null) {
+            Log.e(TAG, "Debug server has already been started.");
+            return;
+        }
+
+        mDebugServer = new DebugServer(this, port, maxClients);
+        Threads.spawn(mDebugServer);
+    }
+
+    /**
+     * Stops the current debug server. Active connections are
+     * not affected.
+     */
+    public synchronized void stopDebugServer() {
+        if (mDebugServer == null) {
+            Log.e(TAG, "Debug server is not running.");
+            return;
+        }
+
+        mDebugServer.shutdown();
+        mDebugServer = null;
+    }
+
+    /**
      * Returns a {@link GVRScene} that you can populate before passing to
      * {@link #setMainScene(GVRScene)}.
      * 
@@ -2238,4 +2285,46 @@ public abstract class GVRContext {
      * @since 1.6.8
      */
     public abstract void captureScreen3D(GVRScreenshot3DCallback callback);
+
+    private final GVRContextPrivate mContextPrivate = new GVRContextPrivate();
+
+    final void releaseNative(final GVRHybridObject hybridObject) {
+        mContextPrivate.releaseNative(hybridObject);
+    }
+
+    final void registerHybridObject(final GVRHybridObject hybridObject, final long nativePointer,
+            final List<NativeCleanupHandler> cleanupHandlers) {
+        mContextPrivate.registerHybridObject(hybridObject, nativePointer, cleanupHandlers);
+    }
+
+    private Object mTag;
+
+    /**
+     * Sets the tag associated with this context.
+     * 
+     * Tags can be used to store data within the context without
+     * resorting to another data structure.
+     *
+     * @param tag an object to associate with this context
+     * 
+     * @see #getTag()
+     * @since 3.0.0
+     */
+    public void setTag(Object tag) {
+        mTag = tag;
+    }
+
+    /**
+     * Returns this context's tag.
+     * 
+     * @return the Object stored in this context as a tag,
+     *         or {@code null} if not set
+     * 
+     * @see #setTag(Object)
+     * @since 3.0.0
+     */
+    public Object getTag() {
+        return mTag;
+    }
+
 }

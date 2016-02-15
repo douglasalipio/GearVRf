@@ -16,6 +16,7 @@
 package org.gearvrf.script;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
@@ -26,6 +27,7 @@ import javax.script.ScriptEngine;
 
 import org.gearvrf.GVRAndroidResource;
 import org.gearvrf.GVRContext;
+import org.gearvrf.script.javascript.RhinoScriptEngineFactory;
 import org.gearvrf.utility.Log;
 
 import com.naef.jnlua.script.LuaScriptEngineFactory;
@@ -57,7 +59,7 @@ public class GVRScriptManager {
     public GVRScriptManager(GVRContext gvrContext) {
         mGvrContext = gvrContext;
         mGlobalVariables = new TreeMap<String, Object>();
-        mScriptMap = new HashMap<IScriptable, GVRScriptFile>();
+        mScriptMap = Collections.synchronizedMap(new HashMap<IScriptable, GVRScriptFile>());
 
         Thread.currentThread().setContextClassLoader(
                 gvrContext.getActivity().getClassLoader());
@@ -75,6 +77,7 @@ public class GVRScriptManager {
 
         // Add languages
         mEngines.put(LANG_LUA, new LuaScriptEngineFactory().getScriptEngine());
+        mEngines.put(LANG_JAVASCRIPT, new RhinoScriptEngineFactory().getScriptEngine());
 
         // Add variables to engines
         refreshGlobalBindings();
@@ -93,8 +96,10 @@ public class GVRScriptManager {
             engine.setBindings(bindings, ScriptContext.GLOBAL_SCOPE);
         }
 
-        for (Map.Entry<String, Object> ent : mGlobalVariables.entrySet()) {
-            bindings.put(ent.getKey(), ent.getValue());
+        synchronized (mGlobalVariables) {
+            for (Map.Entry<String, Object> ent : mGlobalVariables.entrySet()) {
+                bindings.put(ent.getKey(), ent.getValue());
+            }
         }
     }
 
@@ -118,7 +123,9 @@ public class GVRScriptManager {
      * @param value The variable value.
      */
     public void addVariable(String varName, Object value) {
-        mGlobalVariables.put(varName, value);
+        synchronized (mGlobalVariables) {
+            mGlobalVariables.put(varName, value);
+        }
         refreshGlobalBindings();
     }
 
@@ -166,6 +173,8 @@ public class GVRScriptManager {
         GVRScriptFile script = null;
         if (language.equals(LANG_LUA)) {
             script = new GVRLuaScriptFile(mGvrContext, resource.getStream());
+        } else if (language.equals(LANG_JAVASCRIPT)) {
+            script = new GVRJavascriptScriptFile(mGvrContext, resource.getStream());
         }
 
         return script;
