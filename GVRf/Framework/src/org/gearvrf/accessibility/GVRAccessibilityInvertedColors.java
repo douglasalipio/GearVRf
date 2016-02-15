@@ -1,4 +1,3 @@
-
 package org.gearvrf.accessibility;
 
 import org.gearvrf.GVRContext;
@@ -9,7 +8,6 @@ public class GVRAccessibilityInvertedColors {
 
     private GVRPostEffect postEffect;
     private GVRAccessibilityPostEffectShader shaderManager;
-    private GVRContext mGvrContext;
     private boolean isInverted;
 
     /**
@@ -18,7 +16,6 @@ public class GVRAccessibilityInvertedColors {
      * @param gvrContext
      */
     public GVRAccessibilityInvertedColors(final GVRContext gvrContext) {
-        mGvrContext = gvrContext;
         gvrContext.runOnGlThread(new Runnable() {
 
             @Override
