@@ -1,17 +1,12 @@
 /*
  * Copyright [2016] [SIDIA Samsung Instituto de Informatica da Amazonia]
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
+ * language governing permissions and limitations under the License.
  */
 
 package org.gearvrf.accessibility;
@@ -27,9 +22,7 @@ import android.graphics.Typeface;
 import android.view.Gravity;
 
 /**
- * Object that generates subtitle information. It is created in a fixed
- * position, having the camera rig as its parent. It is shown indefinitely
- * unless the user sets a certain amount of time.
+ * Object that generates subtitle information. It is created in a fixed position, having the camera rig as its parent. It is shown indefinitely unless the user sets a certain amount of time.
  */
 public class GVRAccessibilityCaptions {
     private static final float VIEW_POSITION_Z = -.8f; // -.3f
@@ -37,8 +30,6 @@ public class GVRAccessibilityCaptions {
     private static final float VIEW_POSITION_X = 0f;
     private static final float VIEW_WIDTH = -.7666666f * VIEW_POSITION_Z; // .23f
     private static final float VIEW_HEIGHT = -.0416666f * VIEW_POSITION_Z; // .10f
-
-    private static GVRAccessibilityCaptions sInstance;
 
     public static final float INFINITE_DURATION = -1;
     private float duration = INFINITE_DURATION;
@@ -50,32 +41,18 @@ public class GVRAccessibilityCaptions {
     private GVRViewSceneObject mViewSceneObjectR;
     private GVRViewSceneObject mViewSceneObjectL;
     private boolean isShown = true;
-    
 
-    /**
-     * Creates a single instance of captions
-     * 
-     * @param gvrContext
-     * @return
-     */
-    public static synchronized GVRAccessibilityCaptions getInstance(GVRContext gvrContext) {
-        if (sInstance == null) {
-            sInstance = new GVRAccessibilityCaptions(gvrContext);
-        }
-        return sInstance;
-    }
-
-    private GVRAccessibilityCaptions(GVRContext gvrContext) {
+    public GVRAccessibilityCaptions(GVRContext gvrContext, final String text) {
         mGvrContext = gvrContext;
         mGvrContext.getActivity().runOnUiThread(new Runnable() {
 
             @Override
             public void run() {
                 mTextViewR = new GVRTextView(mGvrContext.getActivity());
-                configureGVRTextView(mTextViewR);
+                configureGVRTextView(mTextViewR, text);
 
                 mTextViewL = new GVRTextView(mGvrContext.getActivity());
-                configureGVRTextView(mTextViewL);
+                configureGVRTextView(mTextViewL, text);
 
                 mGvrContext.runOnGlThread(new Runnable() {
 
@@ -88,17 +65,22 @@ public class GVRAccessibilityCaptions {
                         mViewSceneObjectL = new GVRViewSceneObject(mGvrContext, mTextViewL, VIEW_WIDTH, VIEW_HEIGHT);
                         mViewSceneObjectL.getRenderData().setRenderMask(GVRRenderMaskBit.Left);
                         mViewSceneObjectL.getTransform().setPosition(VIEW_POSITION_X, VIEW_POSITION_Y, VIEW_POSITION_Z);
+
+                        mGvrContext.getMainScene().getMainCameraRig().getRightCamera().addChildObject(mViewSceneObjectR);
+                        mGvrContext.getMainScene().getMainCameraRig().getLeftCamera().addChildObject(mViewSceneObjectL);
+
                     }
                 });
             }
 
-            private void configureGVRTextView(final GVRTextView textView) {
+            private void configureGVRTextView(final GVRTextView textView, String text) {
+                textView.setText(text);
                 textView.setBackgroundColor(Color.BLACK);
                 textView.setTextColor(Color.WHITE);
-
-                textView.setTextSize(30);
+                // textView.setLayoutParams(new LayoutParams(100, 50));
+                textView.setTextSize(15);
                 textView.setGravity(Gravity.CENTER_HORIZONTAL);
-                textView.setPadding(0, -90, 0, 0);
+                // textView.setPadding(0, -90, 0, 0);
                 textView.setTypeface(Typeface.SANS_SERIF, Typeface.BOLD);
             }
 
@@ -120,10 +102,10 @@ public class GVRAccessibilityCaptions {
      */
     public void setText(final CharSequence text) {
         if (isShown) {
-//            if (mAccessibilityItem.isActive) {
-//                mGvrContext.getMainScene().getMainCameraRig().getRightCamera().addChildObject(mViewSceneObjectR);
-//                mGvrContext.getMainScene().getMainCameraRig().getLeftCamera().addChildObject(mViewSceneObjectL);
-//            }
+            // if (mAccessibilityItem.isActive) {
+            mGvrContext.getMainScene().getMainCameraRig().getRightCamera().addChildObject(mViewSceneObjectR);
+            mGvrContext.getMainScene().getMainCameraRig().getLeftCamera().addChildObject(mViewSceneObjectL);
+            // }
 
             removeSubtitlesAfterDuration();
 
@@ -184,8 +166,7 @@ public class GVRAccessibilityCaptions {
     }
 
     /**
-     * Set how much time captions will be shown. The default value is
-     * {@link #INFINITE_DURATION}
+     * Set how much time captions will be shown. The default value is {@link #INFINITE_DURATION}
      * 
      * @param duration
      */
@@ -209,8 +190,11 @@ public class GVRAccessibilityCaptions {
      */
     public void show() {
 
-        isShown = true;
-        setText(getText());
+        if (!isShown) {
+
+            isShown = true;
+            setText(getText());
+        }
 
     }
 
@@ -227,6 +211,5 @@ public class GVRAccessibilityCaptions {
         mGvrContext.getMainScene().getMainCameraRig().getLeftCamera().removeChildObject(mViewSceneObjectL);
 
     }
-
 
 }

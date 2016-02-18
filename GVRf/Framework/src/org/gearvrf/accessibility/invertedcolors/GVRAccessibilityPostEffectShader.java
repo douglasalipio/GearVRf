@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package org.gearvrf.accessibility;
+package org.gearvrf.accessibility.invertedcolors;
 
 import org.gearvrf.GVRContext;
 import org.gearvrf.GVRCustomPostEffectShaderId;

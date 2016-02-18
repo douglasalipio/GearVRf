@@ -33,6 +33,7 @@ public class GVRAccessibilityTalkBack {
         mText = text;
         mLocale = locale;
         mContext = context;
+
         init();
     }
 
@@ -81,7 +82,7 @@ public class GVRAccessibilityTalkBack {
 
     public void speak() {
 
-        if(isActive())
+        if (isActive())
             mTextToSpeech.speak(mText, TextToSpeech.QUEUE_FLUSH, null);
 
     }
@@ -103,8 +104,6 @@ public class GVRAccessibilityTalkBack {
         mTextToSpeech.stop();
         mTextToSpeech.shutdown();
     }
-    
-    
 
     public boolean isActive() {
         return mActive;

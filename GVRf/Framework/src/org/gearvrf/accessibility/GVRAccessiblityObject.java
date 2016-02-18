@@ -12,6 +12,7 @@ import org.gearvrf.GVRTexture;
 public class GVRAccessiblityObject extends GVRSceneObject {
 
     private GVRAccessibilityTalkBack mTalkBack;
+    private GVRAccessibilityCaptions mCaptions;
 
     public GVRAccessiblityObject(GVRContext gvrContext, float width, float height, GVRTexture texture, GVRMaterialShaderId shaderId) {
         super(gvrContext, width, height, texture, shaderId);
@@ -58,22 +59,20 @@ public class GVRAccessiblityObject extends GVRSceneObject {
 
     }
 
-    /**
-     * Return {@link GVRAccessibilityTalkBack} object.
-     * 
-     * @return
-     */
     public GVRAccessibilityTalkBack getTalkBack() {
         return mTalkBack;
     }
 
-    /**
-     * Set {@link GVRAccessibilityTalkBack} object.
-     * 
-     * @param mTalkBack
-     */
     public void setTalkBack(GVRAccessibilityTalkBack mTalkBack) {
         this.mTalkBack = mTalkBack;
+    }
+
+    public GVRAccessibilityCaptions getCaptions() {
+        return mCaptions;
+    }
+
+    public void setCaptions(GVRAccessibilityCaptions captions) {
+        this.mCaptions = captions;
     }
 
 }

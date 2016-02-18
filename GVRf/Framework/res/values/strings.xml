@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--/* Copyright 2015 Samsung Electronics Co., LTD
+<!--
+ /* Copyright 2015 Samsung Electronics Co., LTD
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,14 +13,19 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */-->
-
-
+ */
+-->
 
 <resources>
 
     <string name="app_name">New GVR SDK</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
+    <string name="talk_back_less">six</string>
+    <string name="talk_back_more">two</string>
+    <string name="zoom_in">three</string>
+    <string name="zoom_out">for</string>
+    <string name="captions">five</string>
+    <string name="inverted_colors">one</string>
 
 </resources>
