@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
-import android.util.Log;
 
 /**
  * This class initializes Speech Recognizer, capture user voice, convert it to text and treats it as a command by comparing to a list of predefined text commands.
@@ -41,15 +40,19 @@ final class GVRAccessibilityTTS implements RecognitionListener {
 
     @Override
     public void onBufferReceived(byte[] arg0) {
+
     }
 
     @Override
     public void onEndOfSpeech() {
+        if (mSpeechListener != null)
+            mSpeechListener.onEndOfSpeech();
     }
 
     @Override
     public void onError(int arg0) {
-        Log.e("test", "erro de network");
+        if (mSpeechListener != null)
+            mSpeechListener.onError(arg0);
     }
 
     @Override

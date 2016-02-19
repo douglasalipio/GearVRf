@@ -8,7 +8,6 @@ import org.gearvrf.accessibility.GVRAccessibilityManager;
 
 import android.content.Context;
 import android.media.AudioManager;
-import android.util.Log;
 
 class AccessibilityFeature {
 
@@ -103,7 +102,6 @@ class AccessibilityFeature {
     }
 
     private void startInvertedColors() {
-        Log.e("test", "" + managerFeatures.getInvertedColors().isInverted());
         if (managerFeatures.getInvertedColors().isInverted()) {
             managerFeatures.getInvertedColors().turnOff(mGvrContext.getMainScene());
         } else {
